@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.http import HttpResponse
+from .forms import SponsorForm
+from .models import Sponsor
 # Create your views here.
 
 def signup(request):
@@ -32,8 +33,11 @@ def signup(request):
                                   "error": 'Password do not match'
                               })
             
-def philanth(request):
-    return render (request, 'philanth.html')
+def sponsor(request):
+    sponsors=Sponsor.objects.all()
+    return render (request, 'sponsor.html',{
+        'sponsors':sponsors
+    })
 
 def signin(request):
      if request.method == 'GET':
@@ -58,3 +62,55 @@ def home(request):
 
 def menu(request):
     return render(request, 'menu.html')
+
+def register_sponsor(request):
+
+    if request.method == 'GET':
+         return render(request, 'register_sponsor.html',
+                  {
+                      'form':SponsorForm
+                  })
+    else:
+        try:
+            form = SponsorForm(request.POST)
+            new_sponsor=form.save(commit=False)
+            new_sponsor.save()
+            print(new_sponsor)
+            return redirect('sponsor')
+        except:
+            return render(request, 'register_sponsor.html',
+                  {
+                      'form':SponsorForm,
+                      'error': "Introduce valid data"
+                  })
+
+def sponsor_detail(request, sponsor_id):
+
+    if request.method == 'GET':
+        sponsor=get_object_or_404(Sponsor,pk=sponsor_id)
+        form =SponsorForm(instance=sponsor)
+        return render(request, 'sponsor_detail.html',
+                    {
+                        'sponsor':sponsor,
+                        'form':form
+                    })
+    else:
+       try: 
+        sponsor=get_object_or_404(Sponsor,pk=sponsor_id)
+        form =SponsorForm(request.POST, instance=sponsor)
+        form.save()
+        return redirect('sponsor')
+       except:
+            return render(request, 'sponsor_detail.html',
+                    {
+                        'sponsor':sponsor,
+                        'form':form,
+                        'error': "Error updating sponsor"
+                    }) 
+
+def delete_sponsor(request, sponsor_id): 
+    sponsor=get_object_or_404(Sponsor,pk=sponsor_id)  
+    if request.method == 'POST':
+        sponsor.delete()
+        return redirect('sponsor')
+        

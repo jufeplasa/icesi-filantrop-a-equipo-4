@@ -11,9 +11,13 @@ class Event(models.Model):
 
 
 class Sponsor(models.Model):
+    type = [
+        ("N","NATURAL"),
+        ("J","JURIDICA")
+    ]
     name = models.CharField(max_length=200, unique=True)
-    personType = models.ForeignKey(Event_Type, on_delete=models.CASCADE)
-    contact_number = models.CharField(max_length=200)
+    personType =models.CharField(choices=type, max_length=1)
+    contact_number = models.CharField(max_length=200, unique=True)
     email =models.CharField(max_length=200)
     previousColab =models.CharField(max_length=200)
 

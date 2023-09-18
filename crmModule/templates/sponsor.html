@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>sponsor</h1>
+
+{% for sponsor in sponsors%}
+<ul>
+    <li>
+        <a href="{% url 'sponsor_detail' sponsor.id %}">
+            <h2>{{sponsor.name}}</h2>
+        </a>
+        <p>{{sponsor.contact_number}}</p>
+    </li>
+</ul>
+{% endfor%}
+
+
+{% endblock %}

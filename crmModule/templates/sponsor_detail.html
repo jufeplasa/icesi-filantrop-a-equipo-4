@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<h1>{{sponsor.name}}</h1>
+<ul>
+    <li>
+        {{sponsor.personType}}
+    </li>
+    <li>
+        {{sponsor.contact_number}}
+    </li>
+    <li>
+        {{sponsor.email}}
+    </li>
+    <li>
+        {{sponsor.previousColab}}
+    </li>
+
+    {{error}}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn">
+            Update
+        </button>
+    </form>
+
+    <form action="{% url 'delete_sponsor' sponsor.id  %}" method="POST">
+        {% csrf_token %}
+        <button class="btn">
+            delete
+        </button>
+    </form>
+    
+</ul>
+
+{% endblock %}
