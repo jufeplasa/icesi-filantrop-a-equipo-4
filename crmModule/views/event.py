@@ -4,9 +4,9 @@ from ..models import Event
 
 
 def event(request):
-    event = Event.objects.all()
+    events = Event.objects.all()
     return render (request, 'event.html',{
-        'event':event
+        'events':events
     })
 
 def register_event(request):
@@ -24,7 +24,6 @@ def register_event(request):
             form = EventForm(request.POST)
             new_event=form.save(commit=False)
             new_event.save()
-            print(new_event)
             return redirect('event')
         except:
             return render(request, 'register_event.html',
@@ -33,10 +32,10 @@ def register_event(request):
                       'error': "Introduce valid data"
                   })
 
-def event_detail(request, name):
+def event_detail(request, event_id):
 
     if request.method == 'GET':
-        event=get_object_or_404(Event,pk=name)
+        event=get_object_or_404(Event,pk=event_id)
         form =EventForm(instance=event)
         return render(request, 'event_detail.html',
                     {
@@ -45,7 +44,7 @@ def event_detail(request, name):
                     })
     else:
        try: 
-        event=get_object_or_404(Event,pk=name)
+        event=get_object_or_404(Event,pk=event_id)
         form =EventForm(request.POST, instance=event)
         form.save()
         return redirect('event')
@@ -57,8 +56,8 @@ def event_detail(request, name):
                         'error': "Error updating event"
                     }) 
 
-def delete_sponsor(request, name): 
-    event=get_object_or_404(Event,pk=name)  
+def delete_event(request, event_id): 
+    event=get_object_or_404(Event,pk=event_id)  
     if request.method == 'POST':
         event.delete()
         return redirect('event')

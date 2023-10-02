@@ -24,7 +24,7 @@ class Event(models.Model):
     date = models.DateField()
     name = models.CharField(max_length=40, unique=True)
     event_Type = models.CharField(choices=type, max_length=1)
-
+    
 class Sponsor(models.Model):
     type = [
         ("N","NATURAL"),

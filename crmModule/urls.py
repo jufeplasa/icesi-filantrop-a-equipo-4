@@ -13,5 +13,7 @@ urlpatterns = [
     path('sponsor/<int:sponsor_id>/delete', sponsor.delete_sponsor,name='delete_sponsor'),
     path('event/', event.event, name='event'),
     path('event/register/', event.register_event,name='register_event'),
-    path('event/register/event/register/', event.register_event,name='register_event'),
+    path('event/<int:event_id>/', event.event_detail,name='event_detail'),
+    path('event/<int:event_id>/delete', event.delete_event,name='delete_event'),
+   # path('event/register/event/register/', event.register_event,name='register_event'),
 ]
