@@ -1,0 +1,18 @@
+
+{% block content %}
+<h1>Events</h1>
+<li>
+    <a href="/event/register/" target="_blank">Registrar Evento</a>
+</li>
+
+
+{% for event in events%}
+<ul>
+    <li>
+        <a href="{% url 'event_detail' event.id %}">
+            <h2>{{event.name}}</h2>
+    </li>
+</ul>
+{% endfor%}
+
+{% endblock %}

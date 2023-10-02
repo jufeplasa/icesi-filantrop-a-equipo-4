@@ -1,0 +1,14 @@
+
+
+{% block content %}
+<h1>Registrar Evento</h1>
+{{error}}
+
+<form action="event/register/" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>
+        Register
+    </button>
+</form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<h1>{{event.name}}</h1>
+<ul>
+    <li>
+        {{event.date}}
+    </li>
+    <li>
+        {{event.event_Type}}
+    </li>
+
+    {{error}}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn">
+            Update
+        </button>
+    </form>
+
+    <form action="{% url 'delete_event' event.id  %}" method="POST">
+        {% csrf_token %}
+        <button class="btn">
+            delete
+        </button>
+    </form>
+    
+</ul>
+
+{% endblock %}

@@ -51,5 +51,38 @@
       </div>
 
 
+    <nav>
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+           
+            {% if user.is_authenticated %}
+            <li>
+                <a href="/logout/">Logout</a>
+            </li>
+            <li>
+                <a href="/sponsor">Sponsor</a>
+            </li>
+            <li>
+                <a href="/sponsor/register/">Register sponsor</a>
+            </li>
+            <li>
+                <a href="/event">Event</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="/signup/">SignUp</a>
+            </li>
+            <li>
+                <a href="/signin/">SignIn</a>
+            </li>
+
+            {% endif %}
+            
+        </ul>
+    </nav>
+    {% block content %}
+    {% endblock %}
 </body>
 </html>
