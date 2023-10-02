@@ -1,3 +1,16 @@
-h1 {
- background-color: aquamarine;
+.personalized_class1 h1{
+
+ font-size: larger;
+ background-color: blue;
+text-decoration: underline;
+text-emphasis-color: blue;
+    
+}
+.personalized_class1 {
+    text-align: center;
+}
+
+.personalized_class1 img {
+    display: block;
+    margin: 0 auto;
 }
