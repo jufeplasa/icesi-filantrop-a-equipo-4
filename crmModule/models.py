@@ -21,6 +21,7 @@ class Sponsor(models.Model):
     email =models.CharField(max_length=200)
     previousColab =models.CharField(max_length=200)
 
+
 class Sponsor_Event (models.Model):
     event_name =models.ForeignKey(Event, on_delete=models.CASCADE)
     Sponsor_id =models.ForeignKey(Sponsor, on_delete=models.CASCADE)

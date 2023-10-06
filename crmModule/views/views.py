@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
+from crmModule.models import Sponsor
+from crmModule.models import Report
 
 # Create your views here.
 
@@ -57,4 +59,9 @@ def home(request):
 
 def menu(request):
     return render(request, 'menu.html')
+
+def getInfo(request):
+    sponsors = Sponsor.objects.all()
+    return render(request, 'getInformation.html', {"sponsors": sponsors})
+
 
