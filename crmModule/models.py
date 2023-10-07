@@ -1,15 +1,30 @@
 from django.db import models
 
 # Create your models here.
-class Event_Type(models.Model):
-    eventType = models.CharField(max_length=30, unique=True)
+#class Event_Type(models.Model):
+#   TYPE_CHOICES = [
+#       ("F", "FLORECIMIENTO"),
+#       ("O", "ORGANIZACIONAL")
+#   ]
+    
+#   eventType = models.CharField(
+#       choices=TYPE_CHOICES,
+#       max_length=1,
+#       unique=True,
+#       primary_key=True  # Define este campo como la llave primaria
+#   )
+
 
 class Event(models.Model):
+    type = [
+        ("F","FLORECIMIENTO"),
+        ("O","ORGANIZACIONAL")
+    ]
+
     date = models.DateField()
-    name = models.CharField(max_length=40,unique=True )
-    event_Type = models.ForeignKey(Event_Type, on_delete=models.CASCADE)
-
-
+    name = models.CharField(max_length=40, unique=True)
+    event_Type = models.CharField(choices=type, max_length=1)
+    
 class Sponsor(models.Model):
     type = [
         ("N","NATURAL"),
