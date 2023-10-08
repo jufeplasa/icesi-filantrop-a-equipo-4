@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block title %} Agreements {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-4"> 
     <div class="row">
         <div class="col-md-8 col-lg-6 col-xl-6">
             <div class="table-responsive">
@@ -15,23 +17,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for sponsor in sponsors %}
+                        {% for s in sponsors %}
                         <tr>
-                            <td><a href="{% url 'agreement' sponsor.id %}">
-                                {{ sponsor.name }}</a>
-                            </td>
-                            <td>{{ sponsor.id }}</td>
+                            <td><a href="/home/" style="color: #007BFF; font-weight: bold;">{{ s.name }}</a></td>
+                            <td>{{ s.id }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col-md-4 col-lg-6 col-xl-6">
-            <div class="alert alert-info">
-                Por favor, seleccione un patrocinador
-            </div>
-        </div>
     </div>
 </div>
+
+
 {% endblock %}

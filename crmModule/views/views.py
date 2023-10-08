@@ -60,8 +60,5 @@ def home(request):
 def menu(request):
     return render(request, 'menu.html')
 
-def getInfo(request):
-    sponsors = Sponsor.objects.all()
-    return render(request, 'getInformation.html', {"sponsors": sponsors})
 
 

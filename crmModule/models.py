@@ -20,12 +20,15 @@ class Sponsor(models.Model):
     contact_number = models.CharField(max_length=200, unique=True)
     email =models.CharField(max_length=200)
     previousColab =models.CharField(max_length=200)
+    agreement = None
+    
 
 
 class Sponsor_Event (models.Model):
     event_name =models.ForeignKey(Event, on_delete=models.CASCADE)
     Sponsor_id =models.ForeignKey(Sponsor, on_delete=models.CASCADE)
     participation =models.CharField(max_length=100)
+
 
 class Official(models.Model):
     password =models.CharField(max_length=10)
@@ -35,6 +38,5 @@ class Official(models.Model):
 
 class Report(models.Model):
     upload_date = models.DateField(unique=True)
-    description =models.CharField(max_length=1000)
+    description =models.FileField(upload_to='agreements_pdf/', null=True)
     officiaId = models.ForeignKey(Official, on_delete=models.CASCADE)
-    sponsorId = models.ForeignKey(Sponsor, on_delete=models.CASCADE)
