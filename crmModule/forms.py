@@ -1,6 +1,5 @@
 from django.forms import ModelForm
-from .models import Sponsor
-from .models import Event
+from .models import Sponsor, Event, Official
 
 class SponsorForm(ModelForm):
     class Meta:
@@ -22,3 +21,15 @@ class EventForm(ModelForm):
         labels={
             'name':'Nombre', 'date':'Fecha', 'event_Type':'Tipo de Evento'
             }
+
+class UserForm():
+    class Meta:
+        model = Official
+        fields = ['password1','name','email','user', 'password2']
+        labels={
+            'password1':'contraseña',
+            'name':'nombre', 
+            'email':'correo',
+            'user':'user',
+            'password2':'confirmar',
+        }
