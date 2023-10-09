@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Sponsor, Event, Official
+from .models import Sponsor, Event, Official, Report
 
 class SponsorForm(ModelForm):
     class Meta:

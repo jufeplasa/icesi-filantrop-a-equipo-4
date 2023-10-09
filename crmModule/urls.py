@@ -1,5 +1,6 @@
-from django.urls import path
-from .views import user_views, views, sponsor, event
+
+from django.urls import path, include
+from .views import user_views, views, sponsor, event, getInformation
 
 urlpatterns = [
     path('home/', views.home, name='home'),
@@ -12,6 +13,8 @@ urlpatterns = [
     path('sponsor/<int:sponsor_id>/', sponsor.sponsor_detail,name='sponsor_detail'),
     path('sponsor/home',views.home,name='homereg'),
     path('sponsor/<int:sponsor_id>/delete', sponsor.delete_sponsor,name='delete_sponsor'),
+    path('agreement/', getInformation.getInfo, name='agreement'),
+    path('agreement/<int:sponsor_id>/', getInformation.agreement, name='agreement')
     path('event/', event.event, name='event'),
     path('event/register/', event.register_event,name='register_event'),
     path('event/<int:event_id>/', event.event_detail,name='event_detail'),
