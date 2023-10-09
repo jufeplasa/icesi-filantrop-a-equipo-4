@@ -20,6 +20,9 @@ urlpatterns = [
     path('event/register/', event.register_event,name='register_event'),
     path('event/<int:event_id>/', event.event_detail,name='event_detail'),
     path('event/<int:event_id>/delete', event.delete_event,name='delete_event'),
+    path('event/l/', event.show_events, name='show_events'),
+    #path('event/register/event/register/', event.register_event,name='register_event'),
     path('user/',user_views.signup,name='user'),
-   # path('event/register/event/register/', event.register_event,name='register_event'),
+    #path('event/register/event/register/', event.register_event,name='register_event'),
+
 ]

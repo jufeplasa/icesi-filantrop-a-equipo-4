@@ -1,35 +1,98 @@
 {% extends 'base.html' %}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </head>
+    <body>
+    {% block content %}
+    <div class="container_sponsor_register">
 
-{% block content %}
+        <p><a link href="{% url 'menu' %}">Inicio</a> | <a link href="{% url 'event' %}">Eventos</a> | <a link href="{% url 'show_events' %}">Explorar</a> |<a link href="">Visualizar</a>  </p>
+        <hr>
+        
+    <h1><b>INFORMACIÓN DEL EVENTO</b></h1>
+    <p><b>NOMBRE:</b> {{ event.name }}</p>
+    <p><b>FECHA:</b> {{ event.date }}</p>
+    <p><b>HORA:</b> {{ event.time|time:"g:i A" }}</p>
+    <p><b>TIPO:</b> {{ event.get_event_Type_display }}</p>
+
+    <ul>
+        {% for sponsor_detail in sponsor_details %}
+            <strong>FILÁNTROPO:</strong> {{ sponsor_detail.sponsor.name }}
+            <br>
+            <strong>PARTICIPACIÓN:</strong> {{ sponsor_detail.participation }}
+        {% endfor %}
+    </ul>
+    <div>
+        <h1><b>ACTUALIZAR/ELIMINAR EVENTO</b></h1>
+{{ error }}
+
+<div>
+    <form method="POST" style="display: inline-block;">
+        {% csrf_token %}
+        {{ event_form.as_p }}
+        <div class="btn-group" role="group">
+            <button class="btn btn-primary" type="submit" style="border: 3px solid;">ACTUALIZAR</button>
+        </div>
+    </form><form action="{% url 'delete_event' event.id %}" method="POST" style="display: inline-block;">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit" style="border: 3px;">ELIMINAR</button>
+    </form>
+</div>
+</div>
+{% endblock %}
+</body>
+</html>
 
 
 
-<h1>{{event.name}}</h1>
-<ul>
-    <li>
-        {{event.date}}
-    </li>
-    <li>
-        {{event.event_Type}}
-    </li>
+        
+    <!--
+    <h1>{{ event.name }}</h1>
 
-    {{error}}
+    <ul>
+        <li>
+        <p>Fecha: {{event.date}}</p>
+        </li>
+        <li>
+            <p>Hora: {{ event.time|time:"g:i A" }}</p>
+        </li>
+        <li>
+            <p>Tipo: {{ event.get_event_Type_display }}</p>
+        </li>
 
+        {{error}}
+    </ul>
+        Información del Patrocinador 
+    <h2>Información del Patrocinador</h2>
+    <ul>
+        {% for sponsor_detail in sponsor_details %}
+            <li><strong>Nombre del Patrocinador:</strong> {{ sponsor_detail.sponsor.name }}</li>
+            <li><strong>Participación:</strong> {{ sponsor_detail.participation }}</li>
+        {% endfor %}
+    </ul>
+
+    Formulario de edición del Evento 
+    <h2>Editar Información del Evento:</h2>
     <form method="POST">
         {% csrf_token %}
-        {{form.as_p}}
-        <button class="btn">
-            Update
+        {{ event_form.as_p }}
+        <button class="btn" type="submit">
+            Guardar Cambios del Evento
         </button>
     </form>
 
-    <form action="{% url 'delete_event' event.id  %}" method="POST">
+    {{ error }}
+
+    <form action="{% url 'delete_event' event.id %}" method="POST">
         {% csrf_token %}
         <button class="btn">
-            delete
+            Eliminar
         </button>
     </form>
-    
-</ul>
 
-{% endblock %}
+    -->
