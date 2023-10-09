@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 # Create your models here.
 #class Event_Type(models.Model):
@@ -24,6 +25,7 @@ class Event(models.Model):
     date = models.DateField()
     name = models.CharField(max_length=40, unique=True)
     event_Type = models.CharField(choices=type, max_length=1)
+    time = models.TimeField()
     
 class Sponsor(models.Model):
     type = [
@@ -35,6 +37,8 @@ class Sponsor(models.Model):
     contact_number = models.CharField(max_length=200, unique=True)
     email =models.CharField(max_length=200)
     previousColab =models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
 
 class Sponsor_Event (models.Model):
     event_name =models.ForeignKey(Event, on_delete=models.CASCADE)

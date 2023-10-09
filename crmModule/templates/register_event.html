@@ -1,14 +1,22 @@
 
 
 {% block content %}
-<h1>Registrar Evento</h1>
-{{error}}
+<head>
+    <title>Registrar Evento y Participación de Patrocinador</title>
+</head>
+<body>
+    <h1>Registrar Evento y Participación de Patrocinador</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ combined_form.as_p }}
+        <button type="submit">Registrar</button>
+    </form>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
 
-<form action="event/register/" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>
-        Register
-    </button>
-</form>
 {% endblock %}
+
+

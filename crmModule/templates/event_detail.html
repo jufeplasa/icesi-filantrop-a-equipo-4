@@ -1,35 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h1>{{ event.name }}</h1>
 
-
-
-<h1>{{event.name}}</h1>
 <ul>
     <li>
-        {{event.date}}
+       <p>Fecha: {{event.date}}</p>
     </li>
     <li>
-        {{event.event_Type}}
+        <p>Hora: {{ event.time|time:"g:i A" }}</p>
+    </li>
+    <li>
+        <p>Tipo: {{ event.get_event_Type_display }}</p>
     </li>
 
     {{error}}
-
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button class="btn">
-            Update
-        </button>
-    </form>
-
-    <form action="{% url 'delete_event' event.id  %}" method="POST">
-        {% csrf_token %}
-        <button class="btn">
-            delete
-        </button>
-    </form>
-    
 </ul>
+<!-- Información del Patrocinador -->
+<h2>Información del Patrocinador</h2>
+<ul>
+    {% for sponsor_detail in sponsor_details %}
+        <li><strong>Nombre del Patrocinador:</strong> {{ sponsor_detail.sponsor.name }}</li>
+        <li><strong>Participación:</strong> {{ sponsor_detail.participation }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Formulario de edición del Evento -->
+<h2>Editar Información del Evento:</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ event_form.as_p }}
+    <button class="btn" type="submit">
+        Guardar Cambios del Evento
+    </button>
+</form>
+
+{{ error }}
+
+<form action="{% url 'delete_event' event.id %}" method="POST">
+    {% csrf_token %}
+    <button class="btn">
+        Eliminar
+    </button>
+</form>
 
 {% endblock %}
