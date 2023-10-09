@@ -14,22 +14,17 @@ def agreement(request, sponsor_id):
     sponsors = Sponsor.objects.all()
     selected_sponsor = get_object_or_404(Sponsor,pk=sponsor_id)
 
-    if request.method == 'POST' and request.FILES['myfile']:
+    if request.method == "POST" and request.FILES.get("uploadedFile"):
+        uploadedFile = request.FILES["uploadedFile"]
+        selected_sponsor.agreement = uploadedFile
+        selected_sponsor.save()
 
-        myfile = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
-        
-        return render(request, 'agreement.html', {
-            'uploaded_file_url': uploaded_file_url
-        }, {"sponsors": sponsors, "selected_sponsor": selected_sponsor, "agreement": agreement})
-    
+
     if selected_sponsor.agreement != None:
         agreement = selected_sponsor.agreement
-        return render(request, 'agreement.html',{"sponsors": sponsors, "selected_sponsor": selected_sponsor, "agreement": agreement})
+        return render(request, 'agreement.html',{"sponsors": sponsors, "selected_sponsor": selected_sponsor, "file": agreement})
     else:
-        return render(request, 'agreement.html',{"sponsors": sponsors, "selected_sponsor": selected_sponsor, "agreement": None})
+        return render(request, 'agreement.html',{"sponsors": sponsors, "selected_sponsor": selected_sponsor, "file": None})
     
     
 

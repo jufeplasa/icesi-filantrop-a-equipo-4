@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block title %} Agreements {% endblock %}
 
 {% block content %}
-<div class="container mt-4"> 
+<div class="container mt-4">
     <div class="row">
         <div class="col-md-8 col-lg-6 col-xl-6">
             <div class="table-responsive">
@@ -17,18 +16,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for s in sponsors %}
+                        {% for sponsor in sponsors %}
                         <tr>
-                            <td><a href="/home/" style="color: #007BFF; font-weight: bold;">{{ s.name }}</a></td>
-                            <td>{{ s.id }}</td>
+                            <td><a href="{% url 'agreement' sponsor_id=sponsor.id %}">
+                                {{ sponsor.name }}</a>
+                            </td>
+                            <td>{{ sponsor.id }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+        <div class="col-md-4 col-lg-6 col-xl-6">
+            <h2 class="text-center mb-4">{{ selected_sponsor.name }}</h2>
+            <form action="{% url 'agreement' sponsor_id=selected_sponsor.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="uploadedFile" class="form-label">Choose File:</label>
+                    <input type="file" class="form-control" name="uploadedFile" id="uploadedFile">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+            {% if file %}
+            <div class="mt-4">
+                <h4 class="text-center">Current Document</h4>
+                <p class="text-center">{{ file.uploadedFile.name }}</p>
+                <p class="text-center">Last Upload Date: {{ file.dateTimeOfUpload }}</p>
+                <a href="{{ file.uploadedFile.url }}" class="btn btn-success btn-block" download>Download Document</a>
+            </div>
+            {% endif %}
+        </div>
     </div>
 </div>
-
-
 {% endblock %}

@@ -17,7 +17,7 @@
                     <tbody>
                         {% for sponsor in sponsors %}
                         <tr>
-                            <td><a href="{% url 'agreement' sponsor.id %}">
+                            <td><a href="{% url 'agreement' sponsor_id=sponsor.id%}">
                                 {{ sponsor.name }}</a>
                             </td>
                             <td>{{ sponsor.id }}</td>
