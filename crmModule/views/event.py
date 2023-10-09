@@ -106,7 +106,14 @@ def event_detail(request, event_id):
                     }) 
     
     
+def update_event(request, event_id):
+    event=get_object_or_404(Event,pk=event_id) 
 
+def show_events(request):
+    events = Event.objects.all()
+    return render (request, 'event_list.html',{
+        'events':events
+    })
 
 def delete_event(request, event_id): 
     event=get_object_or_404(Event,pk=event_id)  
