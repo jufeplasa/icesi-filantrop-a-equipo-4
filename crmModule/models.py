@@ -42,10 +42,11 @@ class Sponsor_Event (models.Model):
     participation =models.CharField(max_length=100)
 
 class Official(models.Model):
-    password =models.CharField(max_length=10)
+    password1 =models.CharField(max_length=10)
     name =models.CharField(max_length=45, unique=True)
     email =models.CharField(max_length=100)
     user =models.CharField(max_length=45)
+    password2 =models.CharField(max_length=10)
 
 class Report(models.Model):
     upload_date = models.DateField(unique=True)
