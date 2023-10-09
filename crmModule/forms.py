@@ -22,7 +22,7 @@ class EventForm(ModelForm):
             'name':'Nombre', 'date':'Fecha', 'event_Type':'Tipo de Evento'
             }
 
-class UserForm():
+class UserForm(ModelForm):
     class Meta:
         model = Official
         fields = ['password1','name','email','user', 'password2']

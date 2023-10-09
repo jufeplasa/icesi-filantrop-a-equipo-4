@@ -12,6 +12,7 @@ urlpatterns = [
     path('sponsor/<int:sponsor_id>/', sponsor.sponsor_detail,name='sponsor_detail'),
     path('sponsor/home',views.home,name='homereg'),
     path('sponsor/<int:sponsor_id>/delete', sponsor.delete_sponsor,name='delete_sponsor'),
+    path('sponsor/<int:sponsor_id>/update', sponsor.update_sponsor,name='update_sponsor'),
     path('event/', event.event, name='event'),
     path('event/register/', event.register_event,name='register_event'),
     path('event/<int:event_id>/', event.event_detail,name='event_detail'),
