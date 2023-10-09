@@ -46,10 +46,11 @@ class Sponsor_Event (models.Model):
 
 
 class Official(models.Model):
-    password =models.CharField(max_length=10)
+    password1 =models.CharField(max_length=10)
     name =models.CharField(max_length=45, unique=True)
     email =models.CharField(max_length=100)
     user =models.CharField(max_length=45)
+    password2 =models.CharField(max_length=10)
 
 class Report(models.Model):
     dateTimeOfUpload = models.DateTimeField(auto_now = True)

@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from crmModule.models import Sponsor
-from crmModule.models import Report
+from ..models import Sponsor, Report
 
 # Create your views here.
 
@@ -55,7 +54,11 @@ def signout(request):
     return redirect('home')      
 
 def home(request):
-    return render(request, 'home.html')
+    sponsors=Sponsor.objects.all()
+    return render (request, 'home.html',{
+        'sponsors':sponsors
+    })
+ 
 
 def menu(request):
     return render(request, 'menu.html')

@@ -1,0 +1,147 @@
+        .blue-background {
+            background-color: #0061AA;
+            padding: 0;
+            width: 17%;
+            height: 100vh;
+            float: left; 
+        }
+
+        .blue-background img {
+            width: 248px;
+            height: 130px;
+            top: 1px;
+            float : center;
+        }
+
+        .blue-background h2 {
+            color: white;
+            font-size: 18px;
+        }
+
+        .container {
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 20px 0; /* Agregar espacio arriba y abajo */
+            width: 25%;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            float: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 20px; /* Ajusta el valor según el radio de esquina deseado */
+        }
+
+
+        .container label{
+            font-size: 20px;
+        }
+
+        .backgroundlogin {
+            
+            background-image: url(../loginimage.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat; 
+            height: 100vh;
+        }
+
+    
+        .button_sponsor{
+        
+                display: block; 
+                margin: 0 auto; 
+                text-align: center; 
+                position: absolute;
+                top: 40%; 
+                left: 35%;
+            
+                
+            
+
+        }
+
+        .button_sponsor a {
+            background-color: #D9D9D9;
+            color: black;
+            padding: 20px 50px; 
+            margin-right: 100px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .container_sponsor {
+
+            margin-left: 20%;
+
+        }
+        .container_sponsor_register {
+
+            margin-left: 18%;
+    
+        }
+
+        .container_sponsor_register a{
+            color: gray;
+        }
+        .container_sponsor a{
+            color: gray;
+        }
+
+        .register_a_sponsor_container {
+            background-color: rgba(216, 216, 216, 0.8);
+            position: absolute;
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            padding: 40px 40px; 
+            border-radius: 10px;
+        }
+        .register_a_sponsor_container h1{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+             
+        }
+
+        .register_a_sponsor_container button {
+            
+            margin-left:40%;
+        }
+
+        .autotribute {
+            text-align: left;
+            margin-left: 18%;
+        }
+        
+        .autotribute ul {
+            list-style: none;
+            padding: 0; 
+        }
+        
+        .autotribute ul li {
+            display: block; 
+            margin: 0 auto; 
+            padding: 10px; 
+            
+        }
+
+        .autotribute p{
+            color: black;
+         
+        }
+
+        .autotribute a{
+            text-decoration: none;
+            color: black;
+            font-size: 25px;
+        }
+        
+        .container_sponsor_register h3{
+            text-align: left;
+            color: #0061AA;
+            border-bottom: 3px solid #0061AA;
+            padding-bottom: 10px;
+            display: block;
+            padding: 10px;
+        }
+
+       
