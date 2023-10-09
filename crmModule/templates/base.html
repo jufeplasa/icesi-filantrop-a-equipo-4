@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,84 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href=css/main.css>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <title>CRM MODULE</title>
+
 </head>
-<body class="bg-primary-subtle"> 
+<body> 
 
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand text-body-emphasis" href=""><strong>FILANTROPÍA</strong></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>   
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/home/">IR AL HOME</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  SERVICIOS
-                </a>
-                <ul class="dropdown-menu">
-                    {% if user.is_authenticated %}
-                    <li><a class="dropdown-item" href="/sponsor/">SPONSOR</a></li>
-                    <li><a class="dropdown-item" href="#">EVENTO</a></li>
-                    <li><a class="dropdown-item" href="#">REPORTE</a></li>
-                    <li><a class="dropdown-item" href="/logout/">CERRAR SESIÓN</a></li>
-                  
-                    {% else %}
-                    <li><a class="dropdown-item" href="/signin/">INICIAR SESIÓN</a></li>
-                    <li><a class="dropdown-item" href="/signup/">REGISTRARSE</a></li>
-                    {% endif %}
-
-
+    <div class="container-fluid blue-background">
+        <div class="row">
+            <div class="col-md-12 ">
+                <img src="{% static 'logofilan.png' %}" alt="Imagen de encabezado" class="img-fluid" width="15%">
+                <br><br><br>
+                
+            </div>
+            <div class="col-md-12">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'sponsor' %}"><h2>FILÁNTROPOS</h2></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><h2>EVENTOS</h2></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><h2>REPORTES</h2></a>
+                    </li>
                 </ul>
-              </li>
-            </ul>
-          </div>
+            </div>
         </div>
-      </nav>
-      <div class="personalized_class1">
-        <h1 style="text-align: center; color: #ffffff; -webkit-text-stroke: 2px #000000;">UNIVERSIDAD ICESI</h1>
-        <img src ="img/mercedesAMG.jpg" width="100%" alt="UNIVERSIDAD ICESI">
-      </div>
+    </div>
 
-
-    <nav>
-        <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-           
-            {% if user.is_authenticated %}
-            <li>
-                <a href="/logout/">Logout</a>
-            </li>
-            <li>
-                <a href="/sponsor">Sponsor</a>
-            </li>
-            <li>
-                <a href="/sponsor/register/">Register sponsor</a>
-            </li>
-            <li>
-                <a href="/event">Event</a>
-            </li>
-            {% else %}
-            <li>
-                <a href="/signup/">SignUp</a>
-            </li>
-            <li>
-                <a href="/signin/">SignIn</a>
-            </li>
-
-            {% endif %}
-            
-        </ul>
-    </nav>
     {% block content %}
+    
     {% endblock %}
 </body>
 </html>
