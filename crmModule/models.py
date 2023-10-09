@@ -40,19 +40,23 @@ class Sponsor(models.Model):
     def __str__(self):
         return self.name
 
+    agreement = models.FileField(upload_to="agreements/", null=True, blank=True)
+
 class Sponsor_Event (models.Model):
     event_name =models.ForeignKey(Event, on_delete=models.CASCADE)
     Sponsor_id =models.ForeignKey(Sponsor, on_delete=models.CASCADE)
     participation =models.CharField(max_length=100)
 
+
 class Official(models.Model):
-    password =models.CharField(max_length=10)
+    password1 =models.CharField(max_length=10)
     name =models.CharField(max_length=45, unique=True)
     email =models.CharField(max_length=100)
     user =models.CharField(max_length=45)
+    password2 =models.CharField(max_length=10)
 
 class Report(models.Model):
-    upload_date = models.DateField(unique=True)
-    description =models.CharField(max_length=1000)
+    dateTimeOfUpload = models.DateTimeField(auto_now = True)
+    uploadedFile = models.FileField(upload_to = "Uploaded Files/", default="pred")
     officiaId = models.ForeignKey(Official, on_delete=models.CASCADE)
-    sponsorId = models.ForeignKey(Sponsor, on_delete=models.CASCADE)
+    sponsor_id = models.ForeignKey(Sponsor, on_delete=models.CASCADE)

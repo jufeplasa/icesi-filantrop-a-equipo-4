@@ -3,6 +3,8 @@ from .models import Sponsor
 from .models import Event
 from django import forms
 from .models import Sponsor_Event
+from .models import Sponsor, Event, Official, Report
+
 
 class SponsorForm(ModelForm):
     class Meta:
@@ -24,6 +26,7 @@ class EventForm(ModelForm):
         labels={
             'name':'Nombre', 'date':'Fecha','time':'Hora', 'event_Type':'Tipo de Evento'
             }
+
         
 class SponsorEventForm(forms.ModelForm):
     class Meta:
@@ -51,3 +54,17 @@ class CombinedForm(forms.ModelForm):
         sponsor_name = self.cleaned_data['sponsor_name']
         sponsor = Sponsor.objects.get(name=sponsor_name)
         return sponsor.id  # Devolvemos el ID del patrocinador
+
+
+class UserForm(ModelForm):
+    class Meta:
+        model = Official
+        fields = ['password1','name','email','user', 'password2']
+        labels={
+            'password1':'contraseña',
+            'name':'nombre', 
+            'email':'correo',
+            'user':'user',
+            'password2':'confirmar',
+        }
+

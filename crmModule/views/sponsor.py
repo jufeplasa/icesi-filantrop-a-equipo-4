@@ -32,12 +32,19 @@ def register_sponsor(request):
 
 def sponsor_detail(request, sponsor_id):
 
+    sponsor=get_object_or_404(Sponsor,pk=sponsor_id)
+    return render(request, 'sponsor_detail.html',
+        {
+            'sponsor':sponsor
+        })
+       
+def update_sponsor(request, sponsor_id):
+
     if request.method == 'GET':
         sponsor=get_object_or_404(Sponsor,pk=sponsor_id)
         form =SponsorForm(instance=sponsor)
-        return render(request, 'sponsor_detail.html',
+        return render(request, 'update_sponsor.html',
                     {
-                        'sponsor':sponsor,
                         'form':form
                     })
     else:
@@ -45,11 +52,10 @@ def sponsor_detail(request, sponsor_id):
         sponsor=get_object_or_404(Sponsor,pk=sponsor_id)
         form =SponsorForm(request.POST, instance=sponsor)
         form.save()
-        return redirect('sponsor')
+        return redirect('homereg')
        except:
-            return render(request, 'sponsor_detail.html',
+            return render(request, 'update_sponsor.html',
                     {
-                        'sponsor':sponsor,
                         'form':form,
                         'error': "Error updating sponsor"
                     }) 
