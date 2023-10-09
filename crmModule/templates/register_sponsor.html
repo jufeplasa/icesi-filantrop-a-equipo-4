@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,18 +11,50 @@
     <body>
 
     {% block content %}
-    <h1>REGISTRAR UN SPONSOR</h1>
-    {{error}}
+    <div class="container_sponsor_register">
 
-    <form action="/sponsor/register/" method="POST" >
- 
-        {% csrf_token %}
-        {{form.as_p}}
+        <p><a link href="{% url 'menu' %}">Inicio</a> | <a link href="{% url 'sponsor' %}">Filántropos</a> | <a link href="{% url 'register_sponsor' %}">Registrar</a> </p>
+        <hr>
+        <br>
+        </div>
+    <div class="register_a_sponsor_container">
+        <h1>REGISTRAR UN SPONSOR</h1>
+        {{error}}
 
-        <button type="submit" class="btn btn-primary">
-            REGISTRAR
-        </button>
-    </form>
+        <form action="/sponsor/register/" method="POST" >
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.nombre.id_for_label }}">Nombre:</label><br>
+                {{ form.name }}
+            </div>
+                       
+            <div class="form-group">
+                <label for="{{ form.nombre.id_for_label }}">Tipo de persona:</label><br>
+                {{ form.personType }}
+            </div>
+                       
+            <div class="form-group">
+                <label for="{{ form.nombre.id_for_label }}">Número de contacto: </label><br>
+                {{ form.contact_number }}
+            </div>
+                       
+            <div class="form-group">
+                <label for="{{ form.nombre.id_for_label }}">Correo electrónico: </label><br>
+                {{ form.email }}
+            </div>
+                       
+            <div class="form-group">
+                <label for="{{ form.nombre.id_for_label }}">¿La persona ha colaborado antes con icesi?</label><br>
+                {{ form.previousColab }}
+            </div>
+    
+
+
+            <button type="submit" class="btn btn-primary">
+                REGISTRAR
+            </button>
+        </form>
+    </div>
     {% endblock %}
     </body>
 </html>
