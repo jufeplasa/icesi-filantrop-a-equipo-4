@@ -14,7 +14,7 @@ def signup(request):
         if request.POST['password1']==request.POST['password2']:
             try:
 
-                user=Official.objects.create_user(password=request.POST['password1'], name=request.POST['name'], email=request.POST['email'], user=request.POST['user'])
+                user=Official.objects.create_user(name=request.POST['name'], email=request.POST['email'], username=request.POST['username'],password=request.POST['password1'])
                 user.save()
                 return redirect('signin')
             
