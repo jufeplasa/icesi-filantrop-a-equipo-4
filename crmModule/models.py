@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 #class Event_Type(models.Model):
@@ -48,12 +49,9 @@ class Sponsor_Event (models.Model):
     participation =models.CharField(max_length=100)
 
 
-class Official(models.Model):
-    password1 =models.CharField(max_length=10)
+class Official(AbstractUser):
     name =models.CharField(max_length=45, unique=True)
     email =models.CharField(max_length=100)
-    user =models.CharField(max_length=45)
-    password2 =models.CharField(max_length=10)
 
 class Report(models.Model):
     dateTimeOfUpload = models.DateTimeField(auto_now = True)

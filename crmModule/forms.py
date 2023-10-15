@@ -3,7 +3,9 @@ from .models import Sponsor
 from .models import Event
 from django import forms
 from .models import Sponsor_Event
-from .models import Sponsor, Event, Official, Report
+from .models import Sponsor, Event
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
 
 class SponsorForm(ModelForm):
@@ -55,16 +57,10 @@ class CombinedForm(forms.ModelForm):
         sponsor = Sponsor.objects.get(name=sponsor_name)
         return sponsor.id  # Devolvemos el ID del patrocinador
 
+User = get_user_model()
 
-class UserForm(ModelForm):
+class UserForm(UserCreationForm):
     class Meta:
-        model = Official
-        fields = ['password1','name','email','user', 'password2']
-        labels={
-            'password1':'contraseña',
-            'name':'nombre', 
-            'email':'correo',
-            'user':'user',
-            'password2':'confirmar',
-        }
+        model = User
+        fields = ['name','email','username']
 
