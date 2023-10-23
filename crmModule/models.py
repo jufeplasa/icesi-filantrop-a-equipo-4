@@ -39,12 +39,9 @@ class Sponsor(models.Model):
     contact_number = models.CharField(max_length=200, unique=True)
     email =models.CharField(max_length=200)
     previousColab =models.CharField(max_length=200)
-<<<<<<< HEAD
-    
-=======
     def __str__(self):
         return self.name
->>>>>>> dev
+
 
     agreement = models.FileField(upload_to="agreements/", null=True, blank=True)
 

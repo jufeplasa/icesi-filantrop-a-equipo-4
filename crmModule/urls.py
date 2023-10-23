@@ -15,10 +15,7 @@ urlpatterns = [
     path('sponsor/<int:sponsor_id>/delete', sponsor.delete_sponsor,name='delete_sponsor'),
     path('agreement/', getInformation.getInfo, name='agreement'),
     path('agreement/<int:sponsor_id>/', getInformation.agreement, name='agreement'),
-<<<<<<< HEAD
-=======
     path('sponsor/<int:sponsor_id>/update', sponsor.update_sponsor,name='update_sponsor'),
->>>>>>> dev
     path('event/', event.event, name='event'),
     path('event/register/', event.register_event,name='register_event'),
     path('event/<int:event_id>/', event.event_detail,name='event_detail'),
