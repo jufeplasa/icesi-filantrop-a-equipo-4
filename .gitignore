@@ -2,5 +2,6 @@
 venv
 agreements
 db.sqlite3
+migrations
 
 

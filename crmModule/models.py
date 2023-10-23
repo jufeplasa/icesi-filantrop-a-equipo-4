@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from django import forms
 from django.contrib.auth.models import AbstractUser
@@ -41,6 +42,7 @@ class Sponsor(models.Model):
     def __str__(self):
         return self.name
 
+
     agreement = models.FileField(upload_to="agreements/", null=True, blank=True)
 
 class Sponsor_Event (models.Model):
@@ -54,7 +56,8 @@ class Official(AbstractUser):
     email =models.CharField(max_length=100)
 
 class Report(models.Model):
+
     dateTimeOfUpload = models.DateTimeField(auto_now = True)
     uploadedFile = models.FileField(upload_to = "Uploaded Files/", default="pred")
-    officiaId = models.ForeignKey(Official, on_delete=models.CASCADE)
+    officiaId = models.ForeignKey(Official, null=True, blank=True, on_delete=models.CASCADE)
     sponsor_id = models.ForeignKey(Sponsor, on_delete=models.CASCADE)
