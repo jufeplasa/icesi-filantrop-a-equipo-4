@@ -100,6 +100,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# CustomUser modification
+AUTH_USER_MODEL = 'crmModule.Official'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

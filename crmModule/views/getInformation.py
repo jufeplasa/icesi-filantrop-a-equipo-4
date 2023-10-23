@@ -12,7 +12,6 @@ def getInfo(request):
 def agreement(request, sponsor_id):
     sponsors = Sponsor.objects.all()
     selected_sponsor = get_object_or_404(Sponsor, pk=sponsor_id)
-
     if request.method == "POST" and request.FILES.get("uploadedFile"):
         uploaded_file = request.FILES["uploadedFile"]
 

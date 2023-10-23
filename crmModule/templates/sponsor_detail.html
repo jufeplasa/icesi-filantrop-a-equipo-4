@@ -22,16 +22,11 @@
 <p><b>TELÉFONO DE CONTACTO:</b> {{ sponsor.contact_number }}</p>
 <p><b>EMAIL:</b> {{ sponsor.email }}</p>
 <p><b>COLABORACIÓN PREVIA:</b> {{ sponsor.previousColab }}</p>
-<hr>
 <div>
-<h1><b>ACTUALIZAR/ELIMINAR SPONSOR</b></h1>
-{{ error }}
-
-<form method="POST">
+<form action="{% url 'update_sponsor' sponsor.id %}" >
     {% csrf_token %}
-    {{ form.as_p }}
-    <div class="btn-group" role="group">
-        <button class="btn btn-primary" type="submit" style="border: 3px solid #000000;">ACTUALIZAR</button>
+    <div class="btn-group" role="group" method="GET">
+        <button  class="btn btn-primary" type="submit" style="border: 3px solid #000000;">ACTUALIZAR</button>
     </div>
 </form>
 <br>

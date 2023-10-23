@@ -1,5 +1,7 @@
 from typing import Any
 from django.db import models
+from django import forms
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 #class Event_Type(models.Model):
@@ -25,6 +27,7 @@ class Event(models.Model):
     date = models.DateField()
     name = models.CharField(max_length=40, unique=True)
     event_Type = models.CharField(choices=type, max_length=1)
+    time = models.TimeField()
     
 class Sponsor(models.Model):
     type = [
@@ -36,8 +39,14 @@ class Sponsor(models.Model):
     contact_number = models.CharField(max_length=200, unique=True)
     email =models.CharField(max_length=200)
     previousColab =models.CharField(max_length=200)
+<<<<<<< HEAD
     
+=======
+    def __str__(self):
+        return self.name
+>>>>>>> dev
 
+    agreement = models.FileField(upload_to="agreements/", null=True, blank=True)
 
 class Sponsor_Event (models.Model):
     event_name =models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -45,12 +54,9 @@ class Sponsor_Event (models.Model):
     participation =models.CharField(max_length=100)
 
 
-class Official(models.Model):
-    password1 =models.CharField(max_length=10)
+class Official(AbstractUser):
     name =models.CharField(max_length=45, unique=True)
     email =models.CharField(max_length=100)
-    user =models.CharField(max_length=45)
-    password2 =models.CharField(max_length=10)
 
 class Report(models.Model):
 
