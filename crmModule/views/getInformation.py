@@ -10,21 +10,23 @@ def getInfo(request):
         })
 
 def agreement(request, sponsor_id):
-
     sponsors = Sponsor.objects.all()
-    selected_sponsor = get_object_or_404(Sponsor,pk=sponsor_id)
+    selected_sponsor = get_object_or_404(Sponsor, pk=sponsor_id)
 
     if request.method == "POST" and request.FILES.get("uploadedFile"):
-        uploadedFile = request.FILES["uploadedFile"]
-        selected_sponsor.agreement = uploadedFile
-        selected_sponsor.save()
+        uploaded_file = request.FILES["uploadedFile"]
 
+        # Crear un nuevo objeto Report asociado al Sponsor
+        report = Report.objects.create(
+            uploadedFile=uploaded_file,
+            sponsor_id=selected_sponsor
+        )
 
-    if selected_sponsor.agreement != None:
-        agreement = selected_sponsor.agreement
-        return render(request, 'agreement.html',{"sponsors": sponsors, "selected_sponsor": selected_sponsor, "file": agreement})
-    else:
-        return render(request, 'agreement.html',{"sponsors": sponsors, "selected_sponsor": selected_sponsor, "file": None})
+    # Resto del código para renderizar la plantilla
+    latest_report = Report.objects.filter(sponsor_id=selected_sponsor).latest('dateTimeOfUpload') if Report.objects.filter(sponsor_id=selected_sponsor).exists() else None
+
+    return render(request, 'agreement.html', {"sponsors": sponsors, "selected_sponsor": selected_sponsor, "file": latest_report})
+
     
     
 
