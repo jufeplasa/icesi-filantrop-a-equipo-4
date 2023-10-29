@@ -81,7 +81,25 @@ class OfficialTestCase(TestCase):
         self.assertEqual(response2.status_code,302)
 
 
-    #def test_error1_login(self):
+    def test_error1_login(self):
+        self.firstUser()
+        data = {
+            'username':"diego1",
+            "password": "1234"
+        }
+        response=self.client.login(username="diego1", password= "1234")
+        response2=self.client.post('',data)
+        self.assertEqual(response,False)
+        self.assertEqual(response2.status_code,200)
 
 
-    #def test_error2_login(self):
+    def test_error2_login(self):
+        self.firstUser()
+        data = {
+            'username':"esteban1",
+            "password": "1233"
+        }
+        response=self.client.login(username="esteban1", password= "1233")
+        response2=self.client.post('',data)
+        self.assertEqual(response,False)
+        self.assertEqual(response2.status_code,200)
