@@ -1,6 +1,8 @@
 
 from django.urls import path, include
 from .views import user_views, views, sponsor, event, getInformation
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('home/', views.home, name='home'),
@@ -26,3 +28,6 @@ urlpatterns = [
     #path('event/register/event/register/', event.register_event,name='register_event'),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.FILES_ROOT, document_root=settings.FILES_ROOT)
