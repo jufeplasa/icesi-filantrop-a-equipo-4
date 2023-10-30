@@ -31,6 +31,7 @@ class SponsorTestCase(TestCase):
         'previousColab' : "True"
         }
         response = self.client.post('/sponsor/register/', data)
+        self.assertEqual(Sponsor.objects.filter(name = data['name']).exists(),True)
         self.assertEqual(len(Sponsor.objects.all()),2)
 
 
@@ -45,6 +46,7 @@ class SponsorTestCase(TestCase):
         }
         response = self.client.post('/sponsor/register/', data)
         self.assertEqual(len(Sponsor.objects.all()),1)
+        self.assertEqual(response.status_code,200)
 
     
 
