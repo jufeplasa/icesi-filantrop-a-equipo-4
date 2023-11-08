@@ -37,8 +37,8 @@ class SponsorEventForm(forms.ModelForm):
 
 class CombinedForm(forms.ModelForm):
     name = forms.CharField(label='Nombre del Evento')
-    date = forms.DateField(label='Fecha')
-    time = forms.TimeField(label = 'Hora',widget=forms.TimeInput(format='%H:%M'))
+    date = forms.DateField(label='Fecha', widget=forms.DateInput(attrs={'type': 'date'}))
+    time = forms.TimeField(label='Hora', widget=forms.TimeInput(format='%H:%M'))
     event_Type = forms.ChoiceField(choices=Event.type, label='Tipo de Evento')
     
     sponsor_name = forms.ModelChoiceField(queryset=Sponsor.objects.all(), label='Patrocinador', to_field_name='name')
