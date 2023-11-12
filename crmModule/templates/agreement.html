@@ -5,6 +5,7 @@
 
 {% block content %}
 
+<script src="{% static  "/js/visualization.js" %}"></script>
 
 <div class="container-fluid mt-4">
     <div class="row justify-content-center">
@@ -21,10 +22,16 @@
             {% if file %}
             <div class="mt-4">
                 <h4 class="text-center">Previsualizacion</h4>
-                <embed src="{{ BASE_URL }}agreements_pdf/{{ file.uploadedFile.name }}" type="application/pdf" width="580px" height="430px">
+                {% if "pdf" in file.uploadedFile.name %}
+                    <object data="/agreements_pdf{{ file.uploadedFile.url }}" type="application/pdf" width="580px" height="430px">
+                        <p>El navegador no puede mostrar este archivo PDF.</p>
+                    </object>
+                {% else %}
+                    <p class="text-center">Este archivo no es un PDF y no puede ser previsualizado.</p>
+                {% endif %}
                 <p class="text-center">{{ file.uploadedFile.name }}</p>
                 <p class="text-center">Ultima fecha de modificacion: {{ file.dateTimeOfUpload }}</p>
-                <a href="{{ BASE_URL }}agreements_pdf/{{ file.uploadedFile.name }}" class="btn btn-success btn-block" download>Descargar Documento</a>
+                <a href="/agreements_pdf{{ file.uploadedFile.url }}" class="btn btn-success btn-block" download>Descargar Documento</a>
             </div>
             {% endif %}
         </div>
@@ -38,23 +45,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                           {% for sponsor in sponsors %}
-                        <tr>
-                            <td><a href="{% url 'agreement' sponsor_id=sponsor.id %}">
-                                {{ sponsor.name }}</a>
-                            </td>
-                            <td>{{ sponsor.id }}</td>
-                        </tr>
+                        {% for sponsor in sponsors %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'agreement' sponsor_id=sponsor.id %}">{{ sponsor.name }}</a>
+                                </td>
+                                <td>{{ sponsor.id }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-        
     </div>
 </div>
 
-
 {% endblock %}
-
-

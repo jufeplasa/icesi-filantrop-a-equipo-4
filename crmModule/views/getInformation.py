@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from ..models import Sponsor
 from ..models import Report
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
 
 
 def getInfo(request):
@@ -16,6 +17,7 @@ def getInfo(request):
 def agreement(request, sponsor_id):
     sponsors = Sponsor.objects.all()
     selected_sponsor = get_object_or_404(Sponsor, pk=sponsor_id)
+    latest_report = None
 
     if Report.objects.filter(sponsor_id=selected_sponsor).exists(): 
         latest_report = Report.objects.filter(sponsor_id=selected_sponsor).latest('dateTimeOfUpload') 
@@ -46,4 +48,13 @@ def agreement(request, sponsor_id):
 
     return render(request, 'agreement.html', {"sponsors": sponsors, "selected_sponsor": selected_sponsor, "file": latest_report})
     
+    
+def get(self, request, pdf_filename):
+        pdf_path = os.path.join(settings.BASE_DIR, 'agreements_pdf', pdf_filename)
+
+        with open(pdf_path, 'rb') as pdf_file:
+            response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+            response['Content-Disposition'] = f'filename="{pdf_filename}"'
+
+        return response
 
