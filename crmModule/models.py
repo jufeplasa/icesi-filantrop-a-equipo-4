@@ -27,7 +27,7 @@ class Event(models.Model):
     date = models.DateField()
     name = models.CharField(max_length=40, unique=True)
     event_Type = models.CharField(choices=type, max_length=1)
-    time = models.TimeField()
+    time = models.TimeField(default='08:00')
 
     @classmethod
     def create_event(cls, name, date, event_Type, sponsor_name, participation):
@@ -67,6 +67,8 @@ class Sponsor_Event (models.Model):
 class Official(AbstractUser):
     name =models.CharField(max_length=45, unique=True)
     email =models.CharField(max_length=100)
+
+
 
 class Report(models.Model):
 
