@@ -5,8 +5,36 @@
 
 {% block content %}
 
+<script src="{% static  "/js/visualization.js" %}"></script>
+
 <div class="container-fluid mt-4">
     <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-6 col-xl-6"> 
+            <h2 class="text-center mb-4">{{ selected_sponsor.name }}</h2>
+            <form action="{% url 'agreement' sponsor_id=selected_sponsor.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="uploadedFile" class="form-label">Elige el archivo:</label>
+                    <input type="file" class="form-control" name="uploadedFile" id="uploadedFile">
+                </div>
+                <button type="submit" class="btn btn-primary">Subir</button>
+            </form>
+            {% if file %}
+            <div class="mt-4">
+                <h4 class="text-center">Previsualizacion</h4>
+                {% if "pdf" in file.uploadedFile.name %}
+                    <embed data="/agreements_pdf{{ file.uploadedFile.url }}" type="application/pdf" width="580px" height="430px">
+                        <p>El navegador no puede mostrar este archivo PDF.</p>
+                    </embed>
+                {% else %}
+                    <p class="text-center">Este archivo no es un PDF y no puede ser previsualizado.</p>
+                {% endif %}
+                <p class="text-center">{{ file.uploadedFile.name }}</p>
+                <p class="text-center">Ultima fecha de modificacion: {{ file.dateTimeOfUpload }}</p>
+                <a href="/agreements_pdf{{ file.uploadedFile.url }}" class="btn btn-success btn-block" download>Descargar Documento</a>
+            </div>
+            {% endif %}
+        </div>
         <div class="col-md-12 col-lg-8 col-xl-6 text-right">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -17,41 +45,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                           {% for sponsor in sponsors %}
-                        <tr>
-                            <td><a href="{% url 'agreement' sponsor_id=sponsor.id %}">
-                                {{ sponsor.name }}</a>
-                            </td>
-                            <td>{{ sponsor.id }}</td>
-                        </tr>
+                        {% for sponsor in sponsors %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'agreement' sponsor_id=sponsor.id %}">{{ sponsor.name }}</a>
+                                </td>
+                                <td>{{ sponsor.id }}</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col-md-12 col-lg-6 col-xl-6"> 
-            <h2 class="text-center mb-4">{{ selected_sponsor.name }}</h2>
-            <form action="{% url 'agreement' sponsor_id=selected_sponsor.id %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="uploadedFile" class="form-label">Choose File:</label>
-                    <input type="file" class="form-control" name="uploadedFile" id="uploadedFile">
-                </div>
-                <button type="submit" class="btn btn-primary">Upload</button>
-            </form>
-            {% if file %}
-            <div class="mt-4">
-                <h4 class="text-center">Current Document</h4>
-                <p class="text-center">{{ file.uploadedFile.name }}</p>
-                <p class="text-center">Last Upload Date: {{ file.dateTimeOfUpload }}</p>
-                <a href="{{ file.uploadedFile.url }}" class="btn btn-success btn-block" download>Download Document</a>
-            </div>
-            {% endif %}
-        </div>
     </div>
 </div>
 
-
 {% endblock %}
-
-
