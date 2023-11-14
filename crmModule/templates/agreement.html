@@ -23,8 +23,9 @@
             <div class="mt-4">
                 <h4 class="text-center">Previsualizacion</h4>
                 {% if "pdf" in file.uploadedFile.name %}
-                    <object data="/agreements_pdf{{ file.uploadedFile.url }}" type="application/pdf" width="580px" height="430px">
-                    </object>
+                    <embed data="/agreements_pdf{{ file.uploadedFile.url }}" type="application/pdf" width="580px" height="430px">
+                        <p>El navegador no puede mostrar este archivo PDF.</p>
+                    </embed>
                 {% else %}
                     <p class="text-center">Este archivo no es un PDF y no puede ser previsualizado.</p>
                 {% endif %}

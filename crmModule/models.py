@@ -27,7 +27,20 @@ class Event(models.Model):
     date = models.DateField()
     name = models.CharField(max_length=40, unique=True)
     event_Type = models.CharField(choices=type, max_length=1)
-    time = models.TimeField()
+    time = models.TimeField(default='08:00')
+
+    @classmethod
+    def create_event(cls, name, date, event_Type, sponsor_name, participation):
+        # Crea una nueva instancia de Event y la guarda en la base de datos
+        event = cls(name=name, date=date, event_Type=event_Type)
+        event.save()
+
+        # Crea una nueva instancia de Sponsor_Event y la asocia con el evento
+        sponsor_event = Sponsor_Event(Sponsor_id=sponsor_name, participation=participation, event_name=event)
+        sponsor_event.save()
+
+        return event
+
     
 class Sponsor(models.Model):
     type = [
@@ -51,6 +64,8 @@ class Sponsor_Event (models.Model):
 class Official(AbstractUser):
     name =models.CharField(max_length=45, unique=True)
     email =models.CharField(max_length=100)
+
+
 
 class Report(models.Model):
 

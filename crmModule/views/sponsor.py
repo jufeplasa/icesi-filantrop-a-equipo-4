@@ -21,7 +21,6 @@ def register_sponsor(request):
             form = SponsorForm(request.POST)
             new_sponsor=form.save(commit=False)
             new_sponsor.save()
-            print(new_sponsor)
             return redirect('sponsor')
         except:
             return render(request, 'register_sponsor.html',

@@ -89,6 +89,7 @@ def event_detail(request, event_id):
         return render(request, 'event_detail.html', {
             'event': event,
             'event_form': event_form,  # Pasa el formulario del evento a la plantilla
+            'template':'event_detail.html',
             'sponsor_details': sponsor_details,  # Pasa los detalles de los patrocinadores a la plantilla
         })
     else:
