@@ -19,9 +19,8 @@ def agreement(request, sponsor_id):
     selected_sponsor = get_object_or_404(Sponsor, pk=sponsor_id)
     latest_report = None
 
-    if Report.objects.filter(sponsor_id=selected_sponsor).exists(): 
-        latest_report = Report.objects.filter(sponsor_id=selected_sponsor).latest('dateTimeOfUpload') 
-    else: None
+    if Report.objects.filter(sponsor_id=selected_sponsor).exists():
+        latest_report = Report.objects.filter(sponsor_id=selected_sponsor).latest('dateTimeOfUpload')
 
     if request.method == "POST" and request.FILES.get("uploadedFile"):
         uploaded_file = request.FILES["uploadedFile"]
@@ -33,7 +32,6 @@ def agreement(request, sponsor_id):
             latest_report.delete()
 
         original_filename, file_extension = os.path.splitext(uploaded_file.name)
-
         new_filename = f"{selected_sponsor.name}-acuerdo{file_extension}"
 
         report = Report.objects.create(
@@ -46,8 +44,13 @@ def agreement(request, sponsor_id):
             for chunk in uploaded_file.chunks():
                 destination.write(chunk)
 
-    return render(request, 'agreement.html', {"sponsors": sponsors, "selected_sponsor": selected_sponsor, "file": latest_report})
-    
+    # Configurar las cabeceras de caché para evitar almacenamiento en caché
+    response = render(request, 'agreement.html', {"sponsors": sponsors, "selected_sponsor": selected_sponsor, "file": latest_report})
+    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+
+    return response
     
 def get(self, request, pdf_filename):
         pdf_path = os.path.join(settings.BASE_DIR, 'agreements_pdf', pdf_filename)

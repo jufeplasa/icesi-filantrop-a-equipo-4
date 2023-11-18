@@ -131,3 +131,6 @@ FILES_ROOT = os.path.join(BASE_DIR, "agreements_pdf")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 BASE_URL = 'http://localhost:8000/'
+
+X_FRAME_OPTIONS = 'ALLOWALL'
+

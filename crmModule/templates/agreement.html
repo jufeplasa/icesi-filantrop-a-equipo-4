@@ -5,8 +5,6 @@
 
 {% block content %}
 
-<script src="{% static  "/js/visualization.js" %}"></script>
-
 <div class="container-fluid mt-4">
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-6 col-xl-6"> 
@@ -22,16 +20,14 @@
             {% if file %}
             <div class="mt-4">
                 <h4 class="text-center">Previsualizacion</h4>
-                {% if "pdf" in file.uploadedFile.name %}
-                    <embed data="/agreements_pdf{{ file.uploadedFile.url }}" type="application/pdf" width="580px" height="430px">
-                        <p>El navegador no puede mostrar este archivo PDF.</p>
+                {% if "pdf" in file.uploadedFile.name|lower %}
+                    <embed src="/agreements_pdf{{ file.uploadedFile.url }}" type="application/pdf" width="580px" height="430px">
                     </embed>
                 {% else %}
                     <p class="text-center">Este archivo no es un PDF y no puede ser previsualizado.</p>
                 {% endif %}
                 <p class="text-center">{{ file.uploadedFile.name }}</p>
                 <p class="text-center">Ultima fecha de modificacion: {{ file.dateTimeOfUpload }}</p>
-                <a href="/agreements_pdf{{ file.uploadedFile.url }}" class="btn btn-success btn-block" download>Descargar Documento</a>
             </div>
             {% endif %}
         </div>
