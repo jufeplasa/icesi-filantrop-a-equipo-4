@@ -1,6 +1,6 @@
 
 from django.urls import path, include
-from .views import user_views, views, sponsor, event, getInformation
+from .views import user_views, views, sponsor, event, getInformation, loadData
 
 urlpatterns = [
     path('home/', views.home, name='home'),
@@ -21,6 +21,7 @@ urlpatterns = [
     path('event/<int:event_id>/', event.event_detail,name='event_detail'),
     path('event/<int:event_id>/delete', event.delete_event,name='delete_event'),
     path('event/l/', event.show_events, name='show_events'),
+    path('loadtest',loadData.loadSponsors, name='loadSponsors'),
     #path('event/register/event/register/', event.register_event,name='register_event'),
     #path('user/',user_views.signup,name='user'),
     #path('event/register/event/register/', event.register_event,name='register_event'),
