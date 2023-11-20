@@ -5,15 +5,16 @@ from ..models import Sponsor
 from ..models import Report
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def getInfo(request):
     sponsors = Sponsor.objects.all()
     return render(request, 'getInformation.html', {
         'sponsors': sponsors
         })
-
-
+    
+@login_required
 def agreement(request, sponsor_id):
     sponsors = Sponsor.objects.all()
     selected_sponsor = get_object_or_404(Sponsor, pk=sponsor_id)
@@ -48,7 +49,7 @@ def agreement(request, sponsor_id):
 
     return render(request, 'agreement.html', {"sponsors": sponsors, "selected_sponsor": selected_sponsor, "file": latest_report})
     
-    
+@login_required
 def get(self, request, pdf_filename):
         pdf_path = os.path.join(settings.BASE_DIR, 'agreements_pdf', pdf_filename)
 
