@@ -5,6 +5,14 @@
 
 {% block content %}
 
+<div class="container_sponsor_register">
+
+    <p><a link href="{% url 'menu' %}">Inicio</a> | <a link href="{% url 'agreement' %}">Acuerdos</a></p>
+
+    <hr>
+    <br>
+    <h3> Acuerdos </h3>
+</div>
 
 
 <div class="container-fluid mt-4">
@@ -22,16 +30,14 @@
             {% if file %}
             <div class="mt-4">
                 <h4 class="text-center">Previsualizacion</h4>
-                {% if "pdf" in file.uploadedFile.name %}
-                    <embed data="/agreements_pdf{{ file.uploadedFile.url }}" type="application/pdf" width="580px" height="430px">
-                        <p>El navegador no puede mostrar este archivo PDF.</p>
+                {% if "pdf" in file.uploadedFile.name|lower %}
+                    <embed src="/agreements_pdf{{ file.uploadedFile.url }}" type="application/pdf" width="580px" height="430px">
                     </embed>
                 {% else %}
                     <p class="text-center">Este archivo no es un PDF y no puede ser previsualizado.</p>
                 {% endif %}
                 <p class="text-center">{{ file.uploadedFile.name }}</p>
                 <p class="text-center">Ultima fecha de modificacion: {{ file.dateTimeOfUpload }}</p>
-                <a href="/agreements_pdf{{ file.uploadedFile.url }}" class="btn btn-success btn-block" download>Descargar Documento</a>
             </div>
             {% endif %}
         </div>
