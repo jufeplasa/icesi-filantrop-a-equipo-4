@@ -28,12 +28,17 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'event' %}"><h2>EVENTOS</h2></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'agreement' %}"><h2>REPORTES</h2></a>
+                        <a class="nav-link" href="{% url 'agreement' %}"><h2>ACUERDOS</h2></a>
+                    </li>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><hr>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signout' %}"><h2>CERRAR SESIÓN</h2></a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+
 
     {% block content %}
     {% endblock %}
