@@ -51,7 +51,13 @@ class Sponsor(models.Model):
     personType =models.CharField(choices=type, max_length=1)
     contact_number = models.CharField(max_length=200, unique=True)
     email =models.CharField(max_length=200)
-    previousColab =models.CharField(max_length=200)
+    previousColab = models.CharField(
+        max_length=3,
+        choices=[('si', 'Sí'), ('no', 'No')],
+        default='no',  # Opcional, establece el valor predeterminado
+        verbose_name='¿La persona ha colaborado antes con Icesi?'
+    )
+    
     def __str__(self):
         return self.name
 
