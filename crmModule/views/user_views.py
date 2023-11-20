@@ -3,6 +3,7 @@ from ..forms import UserForm
 from ..models import Official
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 
 def signup(request):

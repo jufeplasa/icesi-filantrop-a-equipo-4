@@ -5,15 +5,16 @@ from ..models import Sponsor
 from ..models import Report
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def getInfo(request):
     sponsors = Sponsor.objects.all()
     return render(request, 'getInformation.html', {
         'sponsors': sponsors
         })
-
-
+    
+@login_required
 def agreement(request, sponsor_id):
     sponsors = Sponsor.objects.all()
     selected_sponsor = get_object_or_404(Sponsor, pk=sponsor_id)

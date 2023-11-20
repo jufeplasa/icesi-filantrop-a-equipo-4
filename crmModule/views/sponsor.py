@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from ..forms import SponsorForm
+from django.contrib.auth.decorators import login_required
 from ..models import Sponsor
 
-
+@login_required
 def sponsor(request):
     sponsors=Sponsor.objects.all()
     return render (request, 'sponsor.html',{
         'sponsors':sponsors
     })
-
+    
+@login_required
 def register_sponsor(request):
 
     if request.method == 'GET':
@@ -28,7 +30,7 @@ def register_sponsor(request):
                       'form':SponsorForm,
                       'error': "Introduce valid data"
                   })
-
+@login_required
 def sponsor_detail(request, sponsor_id):
 
     sponsor=get_object_or_404(Sponsor,pk=sponsor_id)
@@ -36,7 +38,7 @@ def sponsor_detail(request, sponsor_id):
         {
             'sponsor':sponsor
         })
-       
+@login_required 
 def update_sponsor(request, sponsor_id):
 
     if request.method == 'GET':
@@ -58,7 +60,7 @@ def update_sponsor(request, sponsor_id):
                         'form':form,
                         'error': "Error updating sponsor"
                     }) 
-
+@login_required
 def delete_sponsor(request, sponsor_id): 
     sponsor=get_object_or_404(Sponsor,pk=sponsor_id)  
     if request.method == 'POST':

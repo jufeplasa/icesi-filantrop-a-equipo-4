@@ -12,33 +12,49 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
+
 {% block content %}
 <div class="container_sponsor_register">
-
     <p><a link href="{% url 'menu' %}">Inicio</a> | <a link href="{% url 'sponsor' %}">Filántropos</a> | <a link href="{% url 'homereg' %}">Explorar</a></p>
-    
     <hr>
     <br>
     <h3> Sponsors registrados</h3>
-    </div>
-    
-   
-{% for sponsor in sponsors%}
+</div>
+
+<div class="search-container">
+    <input type="text" id="sponsorSearch" onkeyup="searchSponsors()" placeholder="Buscar por nombre...">
+</div>
+
+{% for sponsor in sponsors %}
 <div class="autotribute">
     <ul>
         <li>
             <a href="{% url 'sponsor_detail' sponsor.id %}" >
-            
-                <p>{{sponsor.name}}</p>
+                <p>{{ sponsor.name }}</p>
             </a>
-            
         </li>
     </ul>
-</div>  
-{%endfor%}
+</div>
+{% endfor %}
+
+<script>
+    function searchSponsors() {
+        var input = document.getElementById('sponsorSearch');
+        var filter = input.value.toUpperCase();
+        var sponsors = document.getElementsByClassName('autotribute');
+
+        for (var i = 0; i < sponsors.length; i++) {
+            var sponsorName = sponsors[i].getElementsByTagName('p')[0];
+            if (sponsorName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                sponsors[i].style.display = '';
+            } else {
+                sponsors[i].style.display = 'none';
+            }
+        }
+    }
+</script>
 
 {% endblock %}
 
 </body>
 </html>
-
