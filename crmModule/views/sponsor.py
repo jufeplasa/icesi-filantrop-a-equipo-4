@@ -34,7 +34,8 @@ def sponsor_detail(request, sponsor_id):
     sponsor=get_object_or_404(Sponsor,pk=sponsor_id)
     return render(request, 'sponsor_detail.html',
         {
-            'sponsor':sponsor
+            'sponsor':sponsor,
+            'template': 'sponsor_detail.html'
         })
        
 def update_sponsor(request, sponsor_id):
