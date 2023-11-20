@@ -2,7 +2,7 @@
             background-color: #0061AA;
             padding: 0;
             width: 17%;
-            height: 100vh;
+            height: 100%;
             float: left; 
         }
 
@@ -144,4 +144,17 @@
             padding: 10px;
         }
 
-       
+
+        .search-container {
+            text-align: center; 
+            margin-top: 20px;
+            margin-right: 20px; 
+        }
+  
+        #sponsorSearch {
+            padding: 8px; 
+            border: 2px solid #ccc; 
+            border-radius: 8px; 
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+    
