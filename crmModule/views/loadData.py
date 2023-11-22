@@ -1,11 +1,16 @@
 from ..loadFiles import readExcel
 from django.shortcuts import render
 from ..models import Sponsor, Event, Official
+from django.conf import settings
+import os
 
 def loadSponsors (request):
-    data = readExcel('../../excelDatos/SponsorData.xlsx')
 
-    for obj_id, obj_data in data.items:
+    file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'SponsorData.xlsx')
+
+    data = readExcel(file_path)
+
+    for obj_data in data.values():
         obj = Sponsor(
             name=obj_data['name'],
             person_type=obj_data['personType'],
@@ -20,7 +25,9 @@ def loadSponsors (request):
 
 def loadEvents (request):
 
-    data = readExcel('../../excelDatos/EventData.xlsx')
+    file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'EventData.xlsx')
+
+    data = readExcel(file_path)
 
     for obj_id, obj_data in data.items:
         obj = Event(
@@ -33,7 +40,9 @@ def loadEvents (request):
 
 def loadOfficial (request):
 
-    data = readExcel('../../excelDatos/OfficialData.xlsx')
+    file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'OfficialData.xlsx')
+
+    data = readExcel(file_path)
 
     for obj_id, obj_data in data.items:
         obj = Official(
