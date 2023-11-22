@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 from ..forms import EventForm
 from ..models import Event
 from ..models import Sponsor_Event
+from ..forms import CombinedForm  
+from ..forms import EventSearchForm
 from ..forms import SponsorEventForm
-from ..forms import CombinedForm  # Importa el formulario compuesto
 from django.contrib.auth.decorators import login_required
 @login_required
 def event(request):
@@ -109,13 +112,48 @@ def event_detail(request, event_id):
             
 @login_required
 def update_event(request, event_id):
-    event=get_object_or_404(Event,pk=event_id) 
+    if request.method == 'GET':
+        event=get_object_or_404(Event,pk=event_id)
+        form =EventForm(instance=event)
+        return render(request, 'update_event.html',
+                    {
+                        'form': form
+                    })
+    else:
+       try: 
+        event=get_object_or_404(Event,pk=event_id)
+        form =EventForm(request.POST, instance=event)
+        form.save()
+        return redirect('show_events')
+       except:
+            return render(request, 'update_event.html',
+                    {
+                        'form':form,
+                        'error': "Error updating event"
+                    }) 
 @login_required
 def show_events(request):
     events = Event.objects.all()
-    return render (request, 'event_list.html',{
-        'events':events
-    })
+    search_form = EventSearchForm(request.GET)
+
+    if search_form.is_valid():
+        nombre_evento = search_form.cleaned_data.get('nombre_evento')
+        fecha_evento = search_form.cleaned_data.get('fecha_evento')
+
+        if nombre_evento:
+            events = events.filter(name__icontains=nombre_evento)
+
+        if fecha_evento:
+            events = events.filter(date=fecha_evento)
+
+        if request.headers.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+            html = render_to_string('event_search_results.html', {'events': events})
+            return JsonResponse({'html': html})
+
+    return render(request, 'event_list.html', {'events': events, 'search_form': search_form})
+     
+
+
 @login_required
 def delete_event(request, event_id): 
     event=get_object_or_404(Event,pk=event_id)  
