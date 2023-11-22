@@ -1,8 +1,11 @@
 
 from django.urls import path, include
 from .views import user_views, views, sponsor, event, getInformation, loadData
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
+
     path('home/', views.home, name='home'),
     path('signup/', user_views.signup, name='signup'),
     path('', user_views.signin,name='signin'),
@@ -21,11 +24,14 @@ urlpatterns = [
     path('event/<int:event_id>/', event.event_detail,name='event_detail'),
     path('event/<int:event_id>/delete', event.delete_event,name='delete_event'),
     path('event/l/', event.show_events, name='show_events'),
+    path('event/<int:event_id>/update', event.update_event,name='update_event'),
+    path('agreement/<int:agreement_id>/agreements_pdf/<str:pdf_filename>/', getInformation.agreement, name='agreement_pdf'),
     path('loadSponsors',loadData.loadSponsors, name='loadSponsors'),
     path('loadOfficials',loadData.loadOfficial, name='loadOfficials'),
     path('loadEvents',loadData.loadEvents, name='loadEvents'),
-    #path('event/register/event/register/', event.register_event,name='register_event'),
-    #path('user/',user_views.signup,name='user'),
-    #path('event/register/event/register/', event.register_event,name='register_event'),
+
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.FILES_ROOT, document_root=settings.FILES_ROOT)

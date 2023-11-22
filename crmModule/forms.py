@@ -19,7 +19,13 @@ class SponsorForm(ModelForm):
             'email': 'Correo electrónico',
             'previousColab': '¿La persona ha colaborado antes con icesi?',
         }
+        OPCIONES = [('si', 'Sí'), ('no', 'No')]
 
+        previousColab = forms.ChoiceField(
+        choices=OPCIONES,
+        widget=forms.RadioSelect(),
+        label='¿La persona ha colaborado antes con Icesi?')
+        
 class EventForm(ModelForm):
     class Meta:
         model= Event
@@ -28,8 +34,15 @@ class EventForm(ModelForm):
         labels={
             'name':'Nombre', 'date':'Fecha','time':'Hora', 'event_Type':'Tipo de Evento'
             }
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(format='%H:%M', attrs={'type': 'time'})
+        }
 
-        
+class EventSearchForm(forms.Form):
+    nombre_evento = forms.CharField(required=False, label='Buscar por nombre')
+    fecha_evento = forms.DateField(required=False, label='Buscar por fecha', widget=forms.DateInput(attrs={'type': 'date'}))
+
 class SponsorEventForm(forms.ModelForm):
     class Meta:
         model = Sponsor_Event
@@ -37,8 +50,8 @@ class SponsorEventForm(forms.ModelForm):
 
 class CombinedForm(forms.ModelForm):
     name = forms.CharField(label='Nombre del Evento')
-    date = forms.DateField(label='Fecha')
-    time = forms.TimeField(label = 'Hora',widget=forms.TimeInput(format='%H:%M'))
+    date = forms.DateField(label='Fecha', widget=forms.DateInput(attrs={'type': 'date'}))
+    time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
     event_Type = forms.ChoiceField(choices=Event.type, label='Tipo de Evento')
     
     sponsor_name = forms.ModelChoiceField(queryset=Sponsor.objects.all(), label='Patrocinador', to_field_name='name')

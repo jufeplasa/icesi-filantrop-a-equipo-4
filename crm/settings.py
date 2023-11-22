@@ -29,7 +29,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -119,10 +120,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+LOGIN_URL= '/'
 
 import os
 
-FILES_URL = '/agreements_pdf/'
+FILES_URL = 'agreements_pdf'
 FILES_ROOT = os.path.join(BASE_DIR, "agreements_pdf")
 
 FILES_EXCEL_DATA_DIR = os.path.join(BASE_DIR,'excelDatos')
@@ -131,3 +133,8 @@ FILES_EXCEL_DATA_DIR = os.path.join(BASE_DIR,'excelDatos')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+BASE_URL = 'http://localhost:8000/'
+
+X_FRAME_OPTIONS = 'ALLOWALL'
+

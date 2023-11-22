@@ -13,14 +13,14 @@ def loadSponsors (request):
     for obj_data in data.values():
         obj = Sponsor(
             name=obj_data['name'],
-            person_type=obj_data['personType'],
+            personType=obj_data['personType'],
             contact_number=obj_data['contact_number'],
             email=obj_data['email'],
-            previous_colab=obj_data['previousColab']
+            previousColab=obj_data['previousColab']
         )
-        obj.save
+        print(obj)
+        obj.save()
 
-    print("se logro")
     return render(request,'home.html')
 
 def loadEvents (request):

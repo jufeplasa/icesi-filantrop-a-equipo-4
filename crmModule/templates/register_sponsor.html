@@ -43,12 +43,10 @@
                 {{ form.email }}
             </div>
                        
-            <div class="form-group">
-                <label for="{{ form.nombre.id_for_label }}">¿La persona ha colaborado antes con icesi?</label><br>
+            <div class="form-group form-check">
+                <label for="{{ form.previousColab.id_for_label }}" class="form-check-label">¿La persona ha colaborado antes con Icesi?</label>
                 {{ form.previousColab }}
             </div>
-    
-
 
             <button type="submit" class="btn btn-primary">
                 REGISTRAR
