@@ -1,5 +1,14 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Menu</h1>
+
+{% if user.is_authenticated %}
+    <h1>Bienvenid@, {{ user.username }}.</h1>
+    <hr>
+{% else %}
+    
+{% endif %}
+
 {% endblock %}
+

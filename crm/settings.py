@@ -29,7 +29,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -100,13 +101,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# CustomUser modification
+AUTH_USER_MODEL = 'crmModule.Official'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
@@ -117,8 +120,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+LOGIN_URL= '/'
+
+import os
+
+FILES_URL = 'agreements_pdf'
+FILES_ROOT = os.path.join(BASE_DIR, "agreements_pdf")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+BASE_URL = 'http://localhost:8000/'
+
+X_FRAME_OPTIONS = 'ALLOWALL'
+

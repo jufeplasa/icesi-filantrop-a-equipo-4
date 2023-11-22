@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %} Agreements {% endblock %}
+
+{% block content %}
+
+<div class="container_sponsor_register">
+
+    <p><a link href="{% url 'menu' %}">Inicio</a> | <a link href="{% url 'agreement' %}">Acuerdos</a></p>
+
+    <hr> 
+    <br>
+    <h3> Acuerdos </h3>
+</div>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-8 col-lg-6 col-xl-6">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th> Nombre </th>
+                            <th> id </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sponsor in sponsors %}
+                        <tr>
+                            <td><a href="{% url 'agreement' sponsor_id=sponsor.id%}">
+                                {{ sponsor.name }}</a>
+                            </td>
+                            <td>{{ sponsor.id }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-6 col-xl-6">
+            <div class="alert alert-info">
+                Por favor, seleccione un patrocinador
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
