@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+
     path('home/', views.home, name='home'),
     path('signup/', user_views.signup, name='signup'),
     path('', user_views.signin,name='signin'),
@@ -25,9 +26,7 @@ urlpatterns = [
     path('event/l/', event.show_events, name='show_events'),
     path('event/<int:event_id>/update', event.update_event,name='update_event'),
     path('agreement/<int:agreement_id>/agreements_pdf/<str:pdf_filename>/', getInformation.agreement, name='agreement_pdf'),
-    #path('event/register/event/register/', event.register_event,name='register_event'),
-    #path('user/',user_views.signup,name='user'),
-    #path('event/register/event/register/', event.register_event,name='register_event'),
+
 
 ]
 

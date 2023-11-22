@@ -6,7 +6,9 @@ from ..models import Event
 from ..models import Sponsor_Event
 from ..forms import CombinedForm  
 from ..forms import EventSearchForm
-
+from ..forms import SponsorEventForm
+from django.contrib.auth.decorators import login_required
+@login_required
 def event(request):
     events = Event.objects.all()
     return render (request, 'event.html',{
@@ -14,7 +16,7 @@ def event(request):
     })
 
 
-
+@login_required
 def register_event(request):
     if request.method == 'POST':
         try:
@@ -69,7 +71,7 @@ def register_event(request):
         return render(request, 'register_event.html', {
             'combined_form': combined_form
         })
-                
+@login_required            
 def event_detail(request, event_id):
 
     if request.method == 'GET':
@@ -107,8 +109,8 @@ def event_detail(request, event_id):
                         'form':form,
                         'error': "Error updating event"
                     }) 
-    
-    
+            
+@login_required
 def update_event(request, event_id):
     if request.method == 'GET':
         event=get_object_or_404(Event,pk=event_id)
@@ -129,7 +131,7 @@ def update_event(request, event_id):
                         'form':form,
                         'error': "Error updating event"
                     }) 
-
+@login_required
 def show_events(request):
     events = Event.objects.all()
     search_form = EventSearchForm(request.GET)
@@ -149,6 +151,10 @@ def show_events(request):
             return JsonResponse({'html': html})
 
     return render(request, 'event_list.html', {'events': events, 'search_form': search_form})
+     
+
+
+@login_required
 def delete_event(request, event_id): 
     event=get_object_or_404(Event,pk=event_id)  
     if request.method == 'POST':
