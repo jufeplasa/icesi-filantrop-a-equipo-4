@@ -29,6 +29,7 @@ urlpatterns = [
     path('loadSponsors',loadData.loadSponsors, name='loadSponsors'),
     path('loadOfficials',loadData.loadOfficial, name='loadOfficials'),
     path('loadEvents',loadData.loadEvents, name='loadEvents'),
+    path('loadReports', loadData.loadReports, name='loadReports'),
 
 
 ]

@@ -1,6 +1,6 @@
 from ..loadFiles import readExcel
 from django.shortcuts import render, redirect, get_object_or_404
-from ..models import Sponsor, Event, Official, Sponsor_Event
+from ..models import Sponsor, Event, Official, Sponsor_Event, Report
 from django.conf import settings
 import os
 
@@ -57,8 +57,25 @@ def loadOfficial (request):
 
     for obj_data in data.values():
         obj = Official(
-            ...
+            name=obj_data['name'],
+            email=obj_data['email'],
+            username=obj_data['username'],
+            password=obj_data['password']
         )
         obj.save()
 
     return redirect('menu')
+
+def loadReports(request):
+
+    file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'ReportData.xlsx')
+
+    data = readExcel(file_path)
+
+    for obj_data in data.values():
+        obj = Report(
+            ...
+        )
+        obj.save()
+
+    return redirect('report')
