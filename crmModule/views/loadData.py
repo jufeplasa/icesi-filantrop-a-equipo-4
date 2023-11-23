@@ -1,6 +1,6 @@
 from ..loadFiles import readExcel
-from django.shortcuts import render
-from ..models import Sponsor, Event, Official
+from django.shortcuts import render, redirect, get_object_or_404
+from ..models import Sponsor, Event, Official, Sponsor_Event
 from django.conf import settings
 import os
 
@@ -18,10 +18,9 @@ def loadSponsors (request):
             email=obj_data['email'],
             previousColab=obj_data['previousColab']
         )
-        print(obj)
         obj.save()
 
-    return render(request,'home.html')
+    return redirect('sponsor')
 
 def loadEvents (request):
 
@@ -29,14 +28,26 @@ def loadEvents (request):
 
     data = readExcel(file_path)
 
-    for obj_id, obj_data in data.items:
+    for obj_data in data.values():
+        
         obj = Event(
-            ...
+            name=obj_data['name'],
+            event_Type=obj_data['event_type'],
+            date=obj_data['date'],
+            time=obj_data['time']
         )
-        obj.save
+        obj.save()
 
-    print("se logro")
-    return render(request,'home.html')
+        sponsor=get_object_or_404(Sponsor,name=obj_data['sponsor_name'])
+
+        obj2 = Sponsor_Event(
+            event_name=obj,
+            Sponsor_id=sponsor,
+            participation=obj_data['participation']
+        )
+        obj2.save()
+
+    return redirect('event')
 
 def loadOfficial (request):
 
@@ -44,11 +55,10 @@ def loadOfficial (request):
 
     data = readExcel(file_path)
 
-    for obj_id, obj_data in data.items:
+    for obj_data in data.values():
         obj = Official(
             ...
         )
-        obj.save
+        obj.save()
 
-    print("se logro")
-    return render(request,'home.html')
+    return redirect('menu')
