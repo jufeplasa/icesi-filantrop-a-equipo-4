@@ -29,6 +29,17 @@
     <a link href="{% url 'register_sponsor' %}" class="btn">REGISTRAR FILÁNTROPO</a>
     <a link href="{% url 'homereg' %}" class="btn">EXPLORAR FILÁNTROPOS</a>
 </div>
+<br>
+<div>
+    <a href="{% url 'downloadSponsor' %}" class="button">Descargar Archivo</a>
+    <form action="{% url 'loadSponsors' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="form-group">
+                <input type="file" name="SponsorData" accept=".xlsx">
+            </div>
+            <button type="submit" class="btn btn-primary">Subir</button>
+    </form>
+</div>
 
 
 {% endblock %}

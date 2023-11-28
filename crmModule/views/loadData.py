@@ -9,6 +9,15 @@ def loadSponsors (request):
 
     file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'SponsorData.xlsx')
 
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        
+    new_file = request.FILES['SponsorData']
+
+    with open(file_path, 'wb+') as destino:
+        for chunk in new_file.chunks():
+            destino.write(chunk)
+
     data = readExcel(file_path)
 
     for obj_data in data.values():
@@ -63,6 +72,15 @@ def loadOfficial (request):
 
     file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'OfficialData.xlsx')
 
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        
+    new_file = request.FILES['OfficialData']
+
+    with open(file_path, 'wb+') as destino:
+        for chunk in new_file.chunks():
+            destino.write(chunk)
+
     data = readExcel(file_path)
 
     for obj_data in data.values():
@@ -80,6 +98,15 @@ def loadReports (request):
 
     file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'ReportData.xlsx')
 
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        
+    new_file = request.FILES['ReportData']
+
+    with open(file_path, 'wb+') as destino:
+        for chunk in new_file.chunks():
+            destino.write(chunk)
+
     data = readExcel(file_path)
 
     for obj_data in data.values():
@@ -92,7 +119,7 @@ def loadReports (request):
 
 
 def download_event_data(request):
-    file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'EventData.xlsx')
+    file_path = os.path.join(settings.FILES_EXCEL_DATA_FORMAT, 'EventData.xlsx')
 
     if os.path.exists(file_path):
         with open(file_path, 'rb') as file:
@@ -100,3 +127,24 @@ def download_event_data(request):
             response['Content-Disposition'] = 'attachment; filename=EventData.xlsx'
             return response
     return HttpResponse("File not found", status=404)
+
+def download_sponsor_data(request):
+    file_path = os.path.join(settings.FILES_EXCEL_DATA_FORMAT, 'SponsorData.xlsx')
+
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=SponsorData.xlsx'
+            return response
+    return HttpResponse("File not found", status=404)
+
+def download_official_data(request):
+    file_path = os.path.join(settings.FILES_EXCEL_DATA_FORMAT, 'OfficialData.xlsx')
+
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=OfficialData.xlsx'
+            return response
+    return HttpResponse("File not found", status=404)
+
