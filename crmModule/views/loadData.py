@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from ..loadFiles import readExcel
 from django.shortcuts import render, redirect, get_object_or_404
 from ..models import Sponsor, Event, Official, Sponsor_Event, Report
@@ -25,6 +26,15 @@ def loadSponsors (request):
 def loadEvents (request):
 
     file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'EventData.xlsx')
+
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        
+    new_file = request.FILES['EventData']
+
+    with open(file_path, 'wb+') as destino:
+        for chunk in new_file.chunks():
+            destino.write(chunk)
 
     data = readExcel(file_path)
 
@@ -66,7 +76,7 @@ def loadOfficial (request):
 
     return redirect('menu')
 
-def loadReports(request):
+def loadReports (request):
 
     file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'ReportData.xlsx')
 
@@ -79,3 +89,14 @@ def loadReports(request):
         obj.save()
 
     return redirect('report')
+
+
+def download_event_data(request):
+    file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'EventData.xlsx')
+
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename=EventData.xlsx'
+            return response
+    return HttpResponse("File not found", status=404)

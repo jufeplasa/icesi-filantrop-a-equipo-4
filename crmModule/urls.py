@@ -28,8 +28,9 @@ urlpatterns = [
     path('agreement/<int:agreement_id>/agreements_pdf/<str:pdf_filename>/', getInformation.agreement, name='agreement_pdf'),
     path('loadSponsors',loadData.loadSponsors, name='loadSponsors'),
     path('loadOfficials',loadData.loadOfficial, name='loadOfficials'),
-    path('loadEvents',loadData.loadEvents, name='loadEvents'),
+    path('event/loadEvents',loadData.loadEvents, name='loadEvents'),
     path('loadReports', loadData.loadReports, name='loadReports'),
+    path('event/downloadFormat', loadData.download_event_data, name='downloadEvent')
 
 
 ]
