@@ -4,5 +4,6 @@ agreements_pdf
 db.sqlite3
 migrations
 env/
+.coverage
 
 
