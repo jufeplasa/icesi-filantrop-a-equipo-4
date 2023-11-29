@@ -178,4 +178,6 @@ class EventTestCase(TestCase):
         }
         url = reverse('update_event', args=[1])
         response = self.client.get(url, data)
+        self.assertFalse(response.context['form'].is_valid())
 
+   
