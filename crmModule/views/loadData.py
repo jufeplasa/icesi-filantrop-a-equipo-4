@@ -4,7 +4,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from ..models import Sponsor, Event, Official, Sponsor_Event, Report
 from django.conf import settings
 import os
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def loadSponsors (request):
 
     file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'SponsorData.xlsx')
@@ -32,6 +34,7 @@ def loadSponsors (request):
 
     return redirect('sponsor')
 
+@login_required
 def loadEvents (request):
 
     file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'EventData.xlsx')
@@ -68,6 +71,7 @@ def loadEvents (request):
 
     return redirect('event')
 
+@login_required
 def loadOfficial (request):
 
     file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'OfficialData.xlsx')
@@ -94,6 +98,7 @@ def loadOfficial (request):
 
     return redirect('menu')
 
+@login_required
 def loadReports (request):
 
     file_path = os.path.join(settings.FILES_EXCEL_DATA_DIR, 'ReportData.xlsx')
@@ -118,6 +123,7 @@ def loadReports (request):
     return redirect('report')
 
 
+@login_required
 def download_event_data(request):
     file_path = os.path.join(settings.FILES_EXCEL_DATA_FORMAT, 'EventData.xlsx')
 
@@ -128,6 +134,7 @@ def download_event_data(request):
             return response
     return HttpResponse("File not found", status=404)
 
+@login_required
 def download_sponsor_data(request):
     file_path = os.path.join(settings.FILES_EXCEL_DATA_FORMAT, 'SponsorData.xlsx')
 
@@ -138,6 +145,7 @@ def download_sponsor_data(request):
             return response
     return HttpResponse("File not found", status=404)
 
+@login_required
 def download_official_data(request):
     file_path = os.path.join(settings.FILES_EXCEL_DATA_FORMAT, 'OfficialData.xlsx')
 
