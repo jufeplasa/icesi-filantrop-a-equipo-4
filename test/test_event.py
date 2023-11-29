@@ -27,10 +27,14 @@ class EventTestCase(TestCase):
         self.firstSponsor=sponsor2Factory.create()
         self.secondSponsor=sponsor3Factory.create()
     
-    def test_acces_event(self):
+    def test_access_event(self):
         self.loginRequired()
         response = self.client.get('/event/')
         self.assertHTMLEqual( response.context['template'],'event.html')
+
+    def test_error_access_event(self):
+        response = self.client.get('/event/')
+        self.assertEqual(response.status_code,302)
 
     def test_register_event(self):
         self.loginRequired()
